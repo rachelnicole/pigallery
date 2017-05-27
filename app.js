@@ -1,32 +1,25 @@
-'use strict';
+var fs = require('fs');
+var express = require('express');
+var app = module.exports.app = express();
+var server = require('http').createServer(app);
+var io = require('socket.io').listen(server);
+var port = process.env.PORT || 3000;
 
-const IotClient = require('azure-iothub').Client;
-const IotMessage = require('azure-iot-common').Message;
-const config = require('./config.js');
+server.listen(port);
 
-const iotClient = IotClient.fromConnectionString(config.IOT_CONN_STRING);
+app.use('/public', express.static('public'));
 
-// Temp, rewrite logic once socket connection is set up.
-const msg = "kirby"
+app.get('/', function (req, res) {
+  res.sendFile(__dirname + '/index.html');
+});
 
-  iotClient.open(function (err) {
-    if (err) {
-      console.error('Could not connect: ' + err.message);
-    } else {
-      console.log('Client connected');
-      // const data = JSON.stringify(msg);
-      const message = new IotMessage(msg);
-      console.log('Sending message: ' + message.getData());
-      iotClient.send(config.IOT_DEVICE_ID, message, printResultFor('send'));
-    }
+io.on('connection', function(socket) { 
+
+  socket.on('artNumber', function (artNumber) {
+    console.log(artNumber);
   });
 
-function printResultFor(op) {
-  return function printResult(err, res) {
-    if (err) {
-      console.log(op + ' error: ' + err.toString());
-    } else {
-      console.log(op + ' status: ' + res.constructor.name);
-    }
-  };
-}
+  function handleError(error) {
+    console.log(error);
+  }
+});

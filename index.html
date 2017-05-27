@@ -1,0 +1,30 @@
+<html>
+
+<head>
+  <title>tiny gallery</title>
+  <link rel="stylesheet" href="public/css/styles.css">
+</head>
+
+<body>
+
+  <h1 class="main-header">lets see some art</h1>
+
+
+  <form id="pickArt" action="javascript:pickArt();">
+    <div>
+      <fieldset>
+        <legend>What do you want to view?</legend>
+        <input type="radio" name="art" value="1" />Cats<br />
+        <input type="radio" name="art" value="2" />Dogs<br />
+        <input type="radio" name="art" value="3" />Birds<br />
+        <input id="pickArt" type="submit" value="Lets See?">
+      </fieldset>
+    </div>
+  </form>
+
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="https://code.jquery.com/jquery-1.12.3.min.js"></script>
+  <script src="public/js/pix.js"></script>
+</body>
+
+</html>

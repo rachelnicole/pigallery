@@ -18,6 +18,10 @@
   "homepage": "https://github.com/rachelnicole/pigallery#readme",
   "dependencies": {
     "azure-iot-common": "^1.1.8",
-    "azure-iothub": "^1.1.11"
+    "azure-iothub": "^1.1.11",
+    "socket.io": "^2.0.1"
+  },
+  "devDependencies": {
+    "express": "^4.15.3"
   }
 }
