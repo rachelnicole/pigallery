@@ -1,7 +1,6 @@
 var IotClient = require('azure-iothub').Client;
 var IotMessage = require('azure-iot-common').Message;
-var config = require('./config.js');
-var iotClient = IotClient.fromConnectionString(config.IOT_CONN_STRING);
+var iotClient = IotClient.fromConnectionString(process.env.IOT_CONN_STRING);
 var fs = require('fs');
 var express = require('express');
 var app = module.exports.app = express();
@@ -28,7 +27,7 @@ io.on('connection', function(socket) {
         // const data = JSON.stringify(msg);
         var message = new IotMessage(artNumber);
         console.log('Sending message: ' + message.getData());
-        iotClient.send(config.IOT_DEVICE_ID, message, printResultFor('send'));
+        iotClient.send(process.env.IOT_DEVICE_ID, message, printResultFor('send'));
       }
     });
   });
