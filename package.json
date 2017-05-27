@@ -1,0 +1,23 @@
+{
+  "name": "pigallerysite",
+  "version": "1.0.0",
+  "description": "a tiny gallery",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rachelnicole/pigallery.git"
+  },
+  "author": "Rachel White <loveless@gmail.com> (http://rachelisaweso.me)",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/rachelnicole/pigallery/issues"
+  },
+  "homepage": "https://github.com/rachelnicole/pigallery#readme",
+  "dependencies": {
+    "azure-iot-common": "^1.1.8",
+    "azure-iothub": "^1.1.11"
+  }
+}
