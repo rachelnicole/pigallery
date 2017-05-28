@@ -18,19 +18,19 @@ app.get('/', function (req, res) {
 
 io.on('connection', function(socket) { 
 
-  socket.on('artNumber', function (artNumber) {
-    console.log('received artNumber');
-    iotClient.open(function (err) {
-      if (err) {
-        console.error('Could not connect: ' + err.message);
-      } else {
-        console.log('Client connected');
-        // const data = JSON.stringify(msg);
+  iotClient.open(function (err) {
+    if (err) {
+      console.error('Could not connect: ' + err.message);
+    } else {
+      console.log('Client connected');
+      // const data = JSON.stringify(msg);
+      socket.on('artNumber', function (artNumber) {
+        console.log('received artNumber');
         var message = new IotMessage(artNumber);
         console.log('Sending message: ' + message.getData());
         iotClient.send(process.env.IOT_DEVICE_ID, message, printResultFor('send'));
-      }
-    });
+      });
+    }
   });
 
   function printResultFor(op) {
