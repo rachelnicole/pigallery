@@ -19,6 +19,7 @@ app.get('/', function (req, res) {
 io.on('connection', function(socket) { 
 
   socket.on('artNumber', function (artNumber) {
+    console.log('received artNumber');
     iotClient.open(function (err) {
       if (err) {
         console.error('Could not connect: ' + err.message);
