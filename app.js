@@ -16,16 +16,16 @@ app.get('/', function (req, res) {
   res.sendFile(__dirname + '/index.html');
 });
 
-io.on('connection', function(socket) { 
-
-  iotClient.open(function (err) {
-    if (err) {
-      console.error('Could not connect: ' + err.message);
-    } else {
-      console.log('Client connected');
+iotClient.open(function (err) {
+  if (err) {
+    console.error('*** Could not connect: ' + err.message);
+  } else {
+    console.log('IOT client connected');
+    io.on('connection', function(socket) {
+      console.log('socket.io client connected');
       // const data = JSON.stringify(msg);
       socket.on('artNumber', function (artNumber) {
-        console.log('received artNumber');
+        console.log('received artNumber "' + artNumber + '"');
         var message = new IotMessage(artNumber);
         console.log('Sending message: ' + message.getData());
         iotClient.send(process.env.IOT_DEVICE_ID, message, printResultFor('send'));
