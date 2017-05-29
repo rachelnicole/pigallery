@@ -1,3 +1,15 @@
+body, html {
+  background: #000;
+  margin: 0;
+}
+
+.main-gallery {
+  background: #fff;
+  width: 500px;
+  display: block;
+  margin: 0 auto;
+}
+
 .gallery {
   width: 384px;
   height: 384px;
