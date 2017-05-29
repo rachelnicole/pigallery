@@ -1,6 +1,7 @@
 body, html {
   background: #93FFD9;
   margin: 0;
+  font-family: Helvetica Neue,Helvetica,Arial,sans-serif; 
 }
 
 .main-gallery {
@@ -18,10 +19,6 @@ body, html {
   border: 15px double;
   display: block;
   margin: 0 auto;
-}
-
-.main-header, h2 {
-  font-family: 'VT323', monospace;
 }
 
 .main-header {
