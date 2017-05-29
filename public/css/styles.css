@@ -6,8 +6,10 @@ body, html {
 .main-gallery {
   background: #fff;
   width: 500px;
+  height: 100vh;
   display: block;
   margin: 0 auto;
+  padding: 0 15px 0 15px;
 }
 
 .gallery {
@@ -18,4 +20,5 @@ body, html {
 
 .main-header, h2 {
   font-family: 'VT323', monospace;
+  text-align: center;
 }
