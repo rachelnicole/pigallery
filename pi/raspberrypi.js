@@ -13,16 +13,22 @@ var connectionString = 'HostName=pigallery.azure-devices.net;DeviceId=raspigalle
 // fromConnectionString must specify a transport constructor, coming from any transport package.
 var client = Client.fromConnectionString(connectionString, Protocol);
 
+var isRunning = false;
+
 var connectCallback = function (err) {
   if (err) {
-    console.error('Could not connect: ' + err.message);
+    console.error('***Could not connect: ' + err.message);
   } else {
     console.log('Client connected');
     client.on('message', function (msg) {
       console.log('Id: ' + msg.messageId + ' Body: ' + msg.data);
-      if (msg.data == "1") {
-        console.log("its a match");
-        cmd.run('sudo ../rpi-rgb-led-matrix/utils/led-image-viewer -t5 ../rpi-rgb-led-matrix/kirby.gif');
+      if (isRunning) {
+        console.log('Command already running');
+      } else {
+        isRunning = true;
+        cmd.get('sudo ../rpi-rgb-led-matrix/utils/led-image-viewer -t5 ../gallery/' + msg.data + '.gif', function() {
+          isRunning = false;
+        });
       }
       // When using MQTT the following line is a no-op.
       client.complete(msg, printResultFor('completed'));
