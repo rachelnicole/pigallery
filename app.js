@@ -30,8 +30,9 @@ iotClient.open(function (err) {
         console.log('Sending message: ' + message.getData());
         iotClient.send(process.env.IOT_DEVICE_ID, message, printResultFor('send'));
       });
-    }
-  });
+    });
+  }
+});
 
   function printResultFor(op) {
     return function printResult(err, res) {
@@ -46,4 +47,3 @@ iotClient.open(function (err) {
   function handleError(error) {
     console.log(error);
   }
-});
