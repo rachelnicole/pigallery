@@ -15,3 +15,7 @@ body, html {
   height: 384px;
   border: 15px double;
 }
+
+.main-header, h2 {
+  font-family: 'VT323', monospace;
+}
