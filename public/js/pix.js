@@ -4,7 +4,7 @@ function pickArt(altTag) {
   artPiece = altTag;
   console.log('art picked' + artPiece);
   socket.emit('artPiece', artPiece);
-  $('.gallery').append('<img src=&quot;public/images/' + artPiece + '-lrg.gif&quot;>');
+  $('.gallery').append('<img src="public/images/' + artPiece + '-lrg.gif">');
   setTimeout(function() {
     $('.gallery').empty();
   }, 2000)
