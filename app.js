@@ -24,9 +24,9 @@ iotClient.open(function (err) {
     io.on('connection', function(socket) {
       console.log('socket.io client connected');
       // const data = JSON.stringify(msg);
-      socket.on('artNumber', function (artNumber) {
-        console.log('received artNumber "' + artNumber + '"');
-        var message = new IotMessage(artNumber);
+      socket.on('artPiece', function (artPiece) {
+        console.log('received artPiece "' + artPiece + '"');
+        var message = new IotMessage(artPiece);
         console.log('Sending message: ' + message.getData());
         iotClient.send(process.env.IOT_DEVICE_ID, message, printResultFor('send'));
       });

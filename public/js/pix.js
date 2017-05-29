@@ -1,9 +1,13 @@
 var socket = io();
 
 function pickArt(altTag) {
-  artNumber = altTag;
-  console.log('art picked' + artNumber);
-  socket.emit('artNumber', artNumber);
+  artPiece = altTag;
+  console.log('art picked' + artPiece);
+  socket.emit('artPiece', artPiece);
+  $('.gallery').append('../images/' + artPiece + '-lrg.gif');
+  setTimeout(function() {
+    $('.gallery').empty();
+  }, 2000)
 };
 
 $('.galleryItem').click(function(e){
