@@ -14,6 +14,7 @@ Prerequisites
   - Have a Microsoft account (outlook, live, etc) so you can set up a web app on Azure with auto deployment & have access to the IoT hub.
   - Make sure you have node installed for your correct operating machine. This guide explains how to install it, and also tells you how to install npm, which we will also be using. https://docs.npmjs.com/getting-started/installing-node
   - Basic understanding of the command line. Know how to navigate into different directories, and open files in an editor.
+  - Know how to solder wires together, here's a good tutorial: http://www.tested.com/tech/5447-we-teach-you-how-to-properly-solder/
 
 
 Things we'll Learn
@@ -36,6 +37,8 @@ Part List
 - [Female DC Power Adapter](https://www.amazon.com/gp/product/B00KAE1QGS/ref=as_li_tl?ie=UTF8&camp=1789&creative=9325&creativeASIN=B00KAE1QGS&linkCode=as2&tag=ohhoe-20&linkId=08889d0ad939e08dec7d298610daaf82)
 - [5v Power Supply](https://www.amazon.com/gp/product/B01LY5TG5Y/ref=as_li_tl?ie=UTF8&camp=1789&creative=9325&creativeASIN=B01LY5TG5Y&linkCode=as2&tag=ohhoe-20&linkId=305cc6affd70545109cf87946aa3f4fc)
 - [Heat Shrink](https://www.amazon.com/gp/product/B00EXLPLTW/ref=as_li_tl?ie=UTF8&camp=1789&creative=9325&creativeASIN=B00EXLPLTW&linkCode=as2&tag=ohhoe-20&linkId=1b5d22ef921059765ac652dfbd23ba3b)
+- [Soldering Iron](https://www.amazon.com/Tabiger-Soldering-110V-Adjustable-Temperature-Welding/dp/B01H1IFT54/ref=as_li_ss_tl?s=hi&ie=UTF8&qid=1496174006&sr=1-4&keywords=soldering+iron&linkCode=ll1&tag=ohhoe-20&linkId=3caef8a3dcb210d170d42e9541bd72cb) This is a fine beginner kit.
+- Solder (comes with above kit, or buy separately)
 
 Hardware Set-Up
 -------
