@@ -3,7 +3,9 @@
 
 ![alt text](uc.gif "Under Construction")
 
-<div class="align-center">This documentation is ever-changing as new improvements are made to the codebase, and as we come up with better explanations for all skill levels.</div>
+This documentation is ever-changing as new improvements are made to the codebase, and as we come up with better explanations for all skill levels. The README.md is still being completed, and as it's not complete, please feel free to watch the project as updates are available.
+
+The code is extremely alpha, and has not been refactor, but will be as we make better decisions.
 
 About
 ------------
@@ -55,3 +57,22 @@ This repository includes the code that I've created, though we'll also be using 
 Lets start by cloning this repository onto your local machine, or downloading the zip file.
 
 Inside the repo you've downloaded exists two separate code bases. One that lives on your hosted site, and the pi folder which is the code that will be running on your pi.
+
+
+Current Known Issues
+------
+- No queing for images clicked across various open connections with the hosted site
+- No capability to upload your own images, have to be hard added.
+- No indication of whether or not the pi is offline.
+
+Current Unknown Issues
+-----
+
+[I don't know, why don't you open an issue and tell me so we can make it better together!](https://github.com/rachelnicole/pigallery/issues)
+
+Future Features
+-------
+- Non-interactive mode, just run gifs on the matrix without internet connectivity. 
+- Allow for uploading of gifs from server to pi.
+- Allow for live drawing on a canvas element to update on the pi.
+- ???
