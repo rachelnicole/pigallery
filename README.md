@@ -1,5 +1,8 @@
 ｡・ﾟﾟ・ ᵗᶦⁿʸ ᵍᵃˡˡᵉʳʸ ・ﾟﾟ・｡
 ====================
+
+![alt text](uc.gif "Under Construction")
+
 <div class="align-center">This documentation is ever-changing as new improvements are made to the codebase, and as we come up with better explanations for all skill levels.</div>
 
 About
@@ -47,3 +50,8 @@ TODO.
 
 Code Time!
 -------
+This repository includes the code that I've created, though we'll also be using the library https://github.com/hzeller/rpi-rgb-led-matrix/ for the actual displaying of the animated gifs on the pi. 
+
+Lets start by cloning this repository onto your local machine, or downloading the zip file.
+
+Inside the repo you've downloaded exists two separate code bases. One that lives on your hosted site, and the pi folder which is the code that will be running on your pi.
