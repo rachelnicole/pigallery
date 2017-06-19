@@ -3,6 +3,8 @@
 
 ![alt text](uc.gif "Under Construction")
 
+![its the tiny gallery](tinygallery.gif "cute gifs")
+
 This documentation is ever-changing as new improvements are made to the codebase, and as we come up with better explanations for all skill levels. The README.md is still being completed, and as it's not complete, please feel free to watch the project as updates are available.
 
 The code is extremely alpha, and has not been refactored, but will be as we make better decisions.
