@@ -9,7 +9,7 @@
   "repository": {
     "type": "git",
     "url": "git+https://github.com/rachelnicole/pigallery.git"
-   },
+  },
   "keywords": [
     "microsoft",
     "iot-hub",
@@ -28,7 +28,9 @@
   "dependencies": {
     "azure-iot-common": "^1.1.8",
     "azure-iothub": "^1.1.11",
-    "socket.io": "^2.0.1",
-    "express": "^4.15.3"
+    "azure-storage": "^2.2.2",
+    "express": "^4.15.3",
+    "multer": "^1.3.0",
+    "socket.io": "^2.0.1"
   }
 }

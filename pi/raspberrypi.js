@@ -5,10 +5,11 @@
 var Protocol = require('azure-iot-device-mqtt').Mqtt;
 var Client = require('azure-iot-device').Client;
 var Message = require('azure-iot-device').Message;
+var config = require('./config');
 
 var cmd = require('node-cmd');
 
-var connectionString = 'HostName=pigallery.azure-devices.net;DeviceId=raspigallery;SharedAccessKey=hgbZT3WUaCOtwnAiHToTxzYCYoNU03PZ09s2hw+MyPw=';
+var connectionString = config.IOTHUB;
 
 // fromConnectionString must specify a transport constructor, coming from any transport package.
 var client = Client.fromConnectionString(connectionString, Protocol);

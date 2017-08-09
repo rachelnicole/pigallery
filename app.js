@@ -1,3 +1,4 @@
+require('dotenv').config();
 var IotClient = require('azure-iothub').Client;
 var IotMessage = require('azure-iot-common').Message;
 var iotClient = IotClient.fromConnectionString(process.env.IOT_CONN_STRING);
@@ -6,7 +7,14 @@ var express = require('express');
 var app = module.exports.app = express();
 var server = require('http').createServer(app);
 var io = require('socket.io').listen(server);
+var multer  = require('multer');
+var storage = multer.memoryStorage();
+var upload = multer({ storage: storage });
 var port = process.env.PORT || 3000;
+var azure = require('azure-storage');
+var fileService = azure.createFileService();
+var Readable = require('stream').Readable;
+var uuidv4 = require('uuid/v4');
 
 server.listen(port);
 
@@ -32,6 +40,28 @@ iotClient.open(function (err) {
       });
     });
   }
+});
+
+app.post('/upload', upload.single('galleryIcon'), function(req, res) {
+  var rs = new Readable;
+  rs.push(req.file.buffer);
+  rs.push(null);
+  console.log(req.file);
+
+  fileService.createShareIfNotExists('pixelart', function(error, result, response) {
+    var randomName = uuidv4();
+    if (!error) {
+      console.log('made new file share');
+      fileService.createFileFromStream('pixelart','', randomName + '.gif', rs, req.file.buffer.length, function(error, ...result){
+        if (error) {
+          console.log(error);
+        }
+        console.log(result);
+      }) 
+    }
+  });
+
+  res.send('youre doing great');
 });
 
   function printResultFor(op) {
