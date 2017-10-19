@@ -1,0 +1,21 @@
+<!-- views/pages/index.ejs -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <% include ../partials/head %>
+</head>
+<body>
+
+    <% include ../partials/header %>
+
+    <ul>
+        <% drinks.forEach(function(drink) { %>
+            <li><img src='https://tinygallery.file.core.windows.net/pixelart/<%= drink.name %>' /></li>
+        <% }); %>
+    </ul>
+
+    <% include ../partials/footer %>
+
+</body>
+</html>

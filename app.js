@@ -16,20 +16,26 @@ var fileService = azure.createFileService();
 var Readable = require('stream').Readable;
 var uuidv4 = require('uuid/v4');
 
+
 server.listen(port);
+
+
+// set the view engine to ejs
+app.set('view engine', 'ejs');
 
 app.use('/public', express.static('public'));
 
-require('azure-storage')
-.createFileService(process.env.AZURE_STORAGE_CONNECTION_STRING)
-.listFilesAndDirectoriesSegmented('pixelart', '', null, null, (err, result) => {
-  console.log(JSON.stringify(result.entries.files))
-
-})
-
 app.get('/', function (req, res) {
-  // grab xml from azure file storage and convert to json to construct gallery view.
-  res.sendFile(__dirname + '/index.html');
+
+  require('azure-storage')
+  .createFileService(process.env.AZURE_STORAGE_CONNECTION_STRING)
+  .listFilesAndDirectoriesSegmented('pixelart', '', null, null, (err, result) => {
+
+    res.render('pages/index', {
+      drinks: result.entries.files
+    });
+  
+  });
 });
 
 iotClient.open(function (err) {
