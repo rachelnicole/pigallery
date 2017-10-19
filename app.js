@@ -21,6 +21,7 @@ server.listen(port);
 app.use('/public', express.static('public'));
 
 app.get('/', function (req, res) {
+  // grab xml from azure file storage and convert to json to construct gallery view.
   res.sendFile(__dirname + '/index.html');
 });
 
