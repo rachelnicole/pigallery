@@ -58,7 +58,7 @@ app.post('/upload', upload.single('galleryIcon'), function(req, res) {
           console.log(error);
         }
         console.log(result);
-        fileService.getFileToStream('pixelart', '', , fs.createWriteStream(__dirname + 'output.txt'), function(error, result, response) {
+        fileService.getFileToStream('pixelart', '', fs.createWriteStream(__dirname + 'output.txt'), function(error, result, response) {
           if (!error) {
             // file retrieved
           }
