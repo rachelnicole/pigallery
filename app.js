@@ -20,6 +20,13 @@ server.listen(port);
 
 app.use('/public', express.static('public'));
 
+require('azure-storage')
+.createFileService(process.env.AZURE_STORAGE_CONNECTION_STRING)
+.listFilesAndDirectoriesSegmented('pixelart', '', null, null, (err, result) => {
+  console.log(JSON.stringify(result.entries.files))
+
+})
+
 app.get('/', function (req, res) {
   // grab xml from azure file storage and convert to json to construct gallery view.
   res.sendFile(__dirname + '/index.html');
