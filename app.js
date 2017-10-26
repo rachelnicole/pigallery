@@ -12,9 +12,12 @@ var storage = multer.memoryStorage();
 var upload = multer({ storage: storage });
 var port = process.env.PORT || 3000;
 var azure = require('azure-storage');
-var fileService = azure.createFileService();
+var blobService = azure.createBlobService();
 var Readable = require('stream').Readable;
 var uuidv4 = require('uuid/v4');
+var tmp = require('tmp');
+
+var urlPath = 'https://tinygallery.file.core.windows.net/pixelart?sv=2017-04-17&si=pixelart-15F36AD1CD6&sr=s&sig=0IQFFAxSEUu88gOH4f%2BKE5PJaxK%2FnH2g%2FRlP719SdAI%3D';
 
 
 server.listen(port);
@@ -32,6 +35,7 @@ app.get('/', function (req, res) {
   .listFilesAndDirectoriesSegmented('pixelart', '', null, null, (err, result) => {
 
     res.render('pages/index', {
+      urlPath: urlPath,
       drinks: result.entries.files
     });
   
@@ -57,24 +61,37 @@ iotClient.open(function (err) {
 });
 
 app.post('/upload', upload.single('galleryIcon'), function(req, res) {
-  var rs = new Readable;
-  rs.push(req.file.buffer);
-  rs.push(null);
-  console.log(req.file);
+  var filePath = req.file;
+  var randomName = uuidv4();
+  var fd = './';
 
-  fileService.createShareIfNotExists('pixelart', function(error, result, response) {
-    var randomName = uuidv4();
-    if (!error) {
-      console.log('made new file share');
-      fileService.createFileFromStream('pixelart','', randomName + '.gif', rs, req.file.buffer.length, function(error, ...result){
-        if (error) {
-          console.log(error);
-        }
-        console.log(result);
-
-      }) 
-    }
+  tmp.file(function _tempFileCreated(err, filePath, fd, cleanupCallback) {
+    if (err) throw err;
+    
+    console.log('File: ', filePath);
+    console.log('Filedescriptor: ', fd);
+    
+    // If we don't need the file anymore we could manually call the cleanupCallback 
+    // But that is not necessary if we didn't pass the keep option because the library 
+    // will clean after itself. 
+    cleanupCallback();
   });
+
+ // fs.writeFile(randomName + '.gif', req.file);
+  // req.file is the image people are using
+
+  // blobService.createContainerIfNotExists('pixelart', {
+  //   publicAccessLevel: 'blob'
+  // }, function(error, result, response) {
+  //   var randomName = uuidv4();
+  //   if (!error) {
+  //     blobService.createBlockBlobFromLocalFile('tinygallery', 'pixelart', req.file, function(error, result, response) {
+  //       if (!error) {
+  //         // file uploaded
+  //       }
+  //     });
+  //   }
+  // });
 
   res.send('youre doing great');
 });
