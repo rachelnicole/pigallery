@@ -8,13 +8,11 @@ var app = module.exports.app = express();
 var server = require('http').createServer(app);
 var io = require('socket.io').listen(server);
 var multer  = require('multer');
-var storage = multer.memoryStorage();
-var upload = multer({ storage: storage });
+var upload = multer({ dest: 'uploads/'});
 var port = process.env.PORT || 3000;
 var azure = require('azure-storage');
 var blobService = azure.createBlobService();
 var Readable = require('stream').Readable;
-var uuidv4 = require('uuid/v4');
 var tmp = require('tmp');
 
 var urlPath = 'https://tinygallery.file.core.windows.net/pixelart?sv=2017-04-17&si=pixelart-15F36AD1CD6&sr=s&sig=0IQFFAxSEUu88gOH4f%2BKE5PJaxK%2FnH2g%2FRlP719SdAI%3D';
@@ -30,16 +28,20 @@ app.use('/public', express.static('public'));
 
 app.get('/', function (req, res) {
 
-  require('azure-storage')
-  .createFileService(process.env.AZURE_STORAGE_CONNECTION_STRING)
-  .listFilesAndDirectoriesSegmented('pixelart', '', null, null, (err, result) => {
-
-    res.render('pages/index', {
-      urlPath: urlPath,
-      drinks: result.entries.files
-    });
-  
+  res.render('pages/index', {
+    
   });
+
+  // require('azure-storage')
+  // .createBlobService(process.env.AZURE_STORAGE_CONNECTION_STRING)
+  // .listFilesAndDirectoriesSegmented('tinygallery', 'pixelart', null, null, (err, result) => {
+
+  //   res.render('pages/index', {
+  //     urlPath: urlPath,
+  //     drinks: result.entries.files
+  //   });
+  
+  // });
 });
 
 iotClient.open(function (err) {
@@ -60,38 +62,26 @@ iotClient.open(function (err) {
   }
 });
 
+
 app.post('/upload', upload.single('galleryIcon'), function(req, res) {
-  var filePath = req.file;
-  var randomName = uuidv4();
-  var fd = './';
+  
+  var savedFile = req.file.path + ".gif";
+  fs.renameSync(req.file.path, savedFile);
 
-  tmp.file(function _tempFileCreated(err, filePath, fd, cleanupCallback) {
-    if (err) throw err;
-    
-    console.log('File: ', filePath);
-    console.log('Filedescriptor: ', fd);
-    
-    // If we don't need the file anymore we could manually call the cleanupCallback 
-    // But that is not necessary if we didn't pass the keep option because the library 
-    // will clean after itself. 
-    cleanupCallback();
+  console.log('File saved to "' + savedFile + '"');
+
+  blobService.createContainerIfNotExists('pixelart', {
+    publicAccessLevel: 'blob'
+  }, function(error, result, response) {
+    if (!error) {
+      blobService.createBlockBlobFromLocalFile('tinygallery', 'pixelart', savedFile, function(error, result, response) {
+        if (!error) {
+          // file uploaded
+          console.log('file uploaded');
+        }
+      });
+    }
   });
-
- // fs.writeFile(randomName + '.gif', req.file);
-  // req.file is the image people are using
-
-  // blobService.createContainerIfNotExists('pixelart', {
-  //   publicAccessLevel: 'blob'
-  // }, function(error, result, response) {
-  //   var randomName = uuidv4();
-  //   if (!error) {
-  //     blobService.createBlockBlobFromLocalFile('tinygallery', 'pixelart', req.file, function(error, result, response) {
-  //       if (!error) {
-  //         // file uploaded
-  //       }
-  //     });
-  //   }
-  // });
 
   res.send('youre doing great');
 });
