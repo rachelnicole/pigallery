@@ -11,12 +11,11 @@ var multer  = require('multer');
 var upload = multer({ dest: 'uploads/'});
 var port = process.env.PORT || 3000;
 var azure = require('azure-storage');
-var blobService = azure.createBlobService();
+var blobService = azure.createBlobService(process.env.AZURE_STORAGE_CONNECTION_STRING);
 var Readable = require('stream').Readable;
 var tmp = require('tmp');
 
-var urlPath = 'https://tinygallery.file.core.windows.net/pixelart?sv=2017-04-17&si=pixelart-15F36AD1CD6&sr=s&sig=0IQFFAxSEUu88gOH4f%2BKE5PJaxK%2FnH2g%2FRlP719SdAI%3D';
-
+var baseUrlPath = 'https://tinygallery.blob.core.windows.net/pixelart/';
 
 server.listen(port);
 
@@ -28,9 +27,18 @@ app.use('/public', express.static('public'));
 
 app.get('/', function (req, res) {
 
-  res.render('pages/index', {
-    
+  blobService.listBlobsSegmented('pixelart', null, function(err, result) {
+    console.log(err);
+    console.log(result);
+    result.entries.forEach((blob) => {
+      var fullPath = baseUrlPath + blob.name;
+      console.log(fullPath);
+    })
+    res.render('pages/index', {
+      
+    });  
   });
+
 
   // require('azure-storage')
   // .createBlobService(process.env.AZURE_STORAGE_CONNECTION_STRING)
