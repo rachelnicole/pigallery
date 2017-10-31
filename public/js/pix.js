@@ -4,7 +4,7 @@ function pickArt(imgSrc) {
   artPiece = imgSrc;
   console.log('art picked' + artPiece);
   socket.emit('artPiece', artPiece);
-  $('.gallery').append('<img src="' + artPiece + '">');
+  $('.gallery').append('<img src="' + artPiece + '" width="384px" height="384px">');
   setTimeout(function () {
     $('.gallery').empty();
   }, 2000)
