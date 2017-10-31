@@ -14,8 +14,10 @@ var azure = require('azure-storage');
 var blobService = azure.createBlobService(process.env.AZURE_STORAGE_CONNECTION_STRING);
 var Readable = require('stream').Readable;
 var tmp = require('tmp');
+var path = require('path');
 
 var baseUrlPath = 'https://tinygallery.blob.core.windows.net/pixelart/';
+
 
 server.listen(port);
 
@@ -30,13 +32,15 @@ app.get('/', function (req, res) {
   blobService.listBlobsSegmented('pixelart', null, function(err, result) {
     console.log(err);
     console.log(result);
+    var images = [];
     result.entries.forEach((blob) => {
       var fullPath = baseUrlPath + blob.name;
       console.log(fullPath);
+      images.push(fullPath);
     })
     res.render('pages/index', {
-      
-    });  
+      images: images
+    });
   });
 
 
@@ -76,13 +80,17 @@ app.post('/upload', upload.single('galleryIcon'), function(req, res) {
   var savedFile = req.file.path + ".gif";
   fs.renameSync(req.file.path, savedFile);
 
+
   console.log('File saved to "' + savedFile + '"');
 
   blobService.createContainerIfNotExists('pixelart', {
     publicAccessLevel: 'blob'
   }, function(error, result, response) {
+    console.log(error);
     if (!error) {
-      blobService.createBlockBlobFromLocalFile('tinygallery', 'pixelart', savedFile, function(error, result, response) {
+      blobService.createBlockBlobFromLocalFile('pixelart', path.basename(savedFile), savedFile, function(error, result, response) {
+        console.log('33333333');
+        console.log(error)
         if (!error) {
           // file uploaded
           console.log('file uploaded');
