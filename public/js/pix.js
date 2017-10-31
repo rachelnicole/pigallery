@@ -1,10 +1,10 @@
 var socket = io();
 
-function pickArt(altTag) {
-  artPiece = altTag;
+function pickArt(imgSrc) {
+  artPiece = imgSrc;
   console.log('art picked' + artPiece);
   socket.emit('artPiece', artPiece);
-  $('.gallery').append('<img src="public/images/' + artPiece + '-lrg.gif">');
+  $('.gallery').append('<img src="' + artPiece + '">');
   setTimeout(function () {
     $('.gallery').empty();
   }, 2000)
@@ -12,14 +12,7 @@ function pickArt(altTag) {
 
 $('.galleryItem').click(function (e) {
   e.preventDefault();
-  var alt = $(this).children("img").attr("alt");
-
-  pickArt(alt);
-});
-
-$('.galleryItem').click(function (e) {
-  e.preventDefault();
-  var alt = $(this).children("img").attr("alt");
+  var alt = $(this).children("img").attr("src");
 
   pickArt(alt);
 });

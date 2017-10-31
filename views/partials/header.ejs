@@ -13,17 +13,9 @@
     <div class="pieces">
 
       <div> ========</div>
-      <a href="#" class="galleryItem" alt="donut gif"><img src="public/images/donut.gif" alt="donut"></a>
-      <a href="#" class="galleryItem" alt="gradient gif"><img src="public/images/gradient.gif" alt="gradient"></a>
-      <a href="#" class="galleryItem" alt="tppie gif"><img src="public/images/tppie.gif" alt="tppie"></a>
-      <a href="#" class="galleryItem" alt="tv gif"><img src="public/images/tv.gif" alt="tv"></a>
-    </div>
-  </div>
-
-  <div class="collection">
-    <h2>Luke Bonaccorsi - <a href="http://www.twitter.com/lukeb_uk" target="_blank">@LukeB_UK</a></h2>
-    <div class="pieces">
-      <a href="#" class="galleryItem" alt="spaceship gif"><img src="public/images/spaceship.gif" alt="spaceship"></a>
+      <% images.forEach(function(images) { %>
+        <a href="#" class="galleryItem"><img src='<%= images %>' /></a>
+      <% }); %>
     </div>
   </div>
 
