@@ -12,7 +12,6 @@ var upload = multer({ dest: 'uploads/' });
 var port = process.env.PORT || 3000;
 var azure = require('azure-storage');
 var blobService = azure.createBlobService(process.env.AZURE_STORAGE_CONNECTION_STRING);
-var Readable = require('stream').Readable;
 var tmp = require('tmp');
 var path = require('path');
 
