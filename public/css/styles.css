@@ -1,3 +1,5 @@
+* { box-sizing: border-box }
+
 body, html {
   background: #93FFD9;
   margin: 0;
@@ -7,7 +9,7 @@ body, html {
 .main-gallery {
   background: #fff;
   width: 500px;
-  height: 100vh;
+  height: 100%;
   display: block;
   margin: 0 auto;
   padding: 0 15px 0 15px;
@@ -19,10 +21,13 @@ body, html {
   border: 15px double;
   display: block;
   margin: 0 auto;
+  overflow: hidden;
 }
 
 .main-header {
   text-align: center;
+  margin: 0px;
+  padding-top: 20px;
 }
 
 h2 {

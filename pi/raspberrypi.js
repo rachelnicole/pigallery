@@ -2,21 +2,18 @@
 
 // This is the script that runs on the raspberry pi.
 
-var Protocol = require('azure-iot-device-mqtt').Mqtt;
-var Client = require('azure-iot-device').Client;
-var Message = require('azure-iot-device').Message;
-var config = require('./config');
+const Protocol = require('azure-iot-device-mqtt').Mqtt,
+      Client = require('azure-iot-device').Client,
+      Message = require('azure-iot-device').Message,
+      config = require('./config'),
+      cmd = require('node-cmd'),
+      connectionString = config.IOTHUB,
+      // fromConnectionString must specify a transport constructor, coming from any transport package.
+      client = Client.fromConnectionString(connectionString, Protocol);
 
-var cmd = require('node-cmd');
+let isRunning = false;
 
-var connectionString = config.IOTHUB;
-
-// fromConnectionString must specify a transport constructor, coming from any transport package.
-var client = Client.fromConnectionString(connectionString, Protocol);
-
-var isRunning = false;
-
-var connectCallback = function (err) {
+let connectCallback = function (err) {
   if (err) {
     console.error('***Could not connect: ' + err.message);
   } else {
