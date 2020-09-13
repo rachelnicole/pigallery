@@ -1,8 +1,8 @@
-var socket = io();
+let socket = io();
 
-function pickArt(imgSrc) {
+let pickArt = imgSrc => {
   artPiece = imgSrc;
-  console.log('art picked' + artPiece);
+  console.log('art picked ' + artPiece);
   socket.emit('artPiece', artPiece);
   $('.gallery').append('<img src="' + artPiece + '" width="384px" height="384px">');
   setTimeout(function () {
@@ -18,11 +18,11 @@ $('.galleryItem').click(function (e) {
 });
 
 
-var artForm = document.getElementById("artForm");
+let artForm = document.getElementById("artForm");
 
 artForm.addEventListener("submit", function(e) {
   e.preventDefault();
-  var formData = new FormData(e.target);
+  let formData = new FormData(e.target);
   // $.ajax({
   //   url: "/upload",
   //   method: "POST",

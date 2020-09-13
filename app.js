@@ -1,25 +1,25 @@
 require('dotenv').config();
-var IotClient = require('azure-iothub').Client;
-var IotMessage = require('azure-iot-common').Message;
-var iotClient = IotClient.fromConnectionString(process.env.IOT_CONN_STRING);
-var fs = require('fs');
-var express = require('express');
-var app = module.exports.app = express();
-var server = require('http').createServer(app);
-var io = require('socket.io').listen(server);
-var multer = require('multer');
-var upload = multer({ dest: 'uploads/' });
-var port = process.env.PORT || 3000;
-var azure = require('azure-storage');
-var blobService = azure.createBlobService(process.env.AZURE_STORAGE_CONNECTION_STRING);
-var tmp = require('tmp');
-var path = require('path');
+const IotClient = require('azure-iothub').Client,
+    IotMessage = require('azure-iot-common').Message,
+    iotClient = IotClient.fromConnectionString(process.env.IOT_CONN_STRING),
+    fs = require('fs'),
+    express = require('express'),
+    app = module.exports.app = express(),
+    server = require('http').createServer(app),
+    io = require('socket.io').listen(server, { perMessageDeflate:false}),
+    multer = require('multer'),
+    upload = multer({ dest: 'uploads/' }),
+    port = process.env.PORT || 3000,
+    azure = require('azure-storage'),
+    blobService = azure.createBlobService(process.env.AZURE_STORAGE_CONNECTION_STRING),
+    tmp = require('tmp'),
+    path = require('path');
 
-var baseUrlPath = 'https://tinygallery.blob.core.windows.net/pixelart/';
+// Grabbed this from azure blob storage
+let baseUrlPath = 'https://tinygallery.blob.core.windows.net/pixelart/';
 
 
 server.listen(port);
-
 
 // set the view engine to ejs
 app.set('view engine', 'ejs');
@@ -31,9 +31,9 @@ app.get('/', function (req, res) {
   blobService.listBlobsSegmented('pixelart', null, function (err, result) {
     console.log(err);
     console.log(result);
-    var images = [];
+    let images = [];
     result.entries.forEach((blob) => {
-      var fullPath = baseUrlPath + blob.name;
+      let fullPath = baseUrlPath + blob.name;
       console.log(fullPath);
       images.push(fullPath);
     })
@@ -41,7 +41,6 @@ app.get('/', function (req, res) {
       images: images
     });
   });
-
 });
 
 iotClient.open(function (err) {
@@ -54,7 +53,7 @@ iotClient.open(function (err) {
       // const data = JSON.stringify(msg);
       socket.on('artPiece', function (artPiece) {
         console.log('received artPiece "' + artPiece + '"');
-        var message = new IotMessage(artPiece);
+        let message = new IotMessage(artPiece);
         console.log('Sending message: ' + message.getData());
         iotClient.send(process.env.IOT_DEVICE_ID, message, printResultFor('send'));
       });
@@ -62,10 +61,9 @@ iotClient.open(function (err) {
   }
 });
 
-
 app.post('/upload', upload.single('galleryIcon'), function (req, res) {
 
-  var savedFile = req.file.path + ".gif";
+  let savedFile = req.file.path + ".gif";
   fs.renameSync(req.file.path, savedFile);
 
 
